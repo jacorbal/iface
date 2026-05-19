@@ -18,8 +18,9 @@
 /* Test if the interface extist */
 int iface_exists(const char *iface)
 {
-    if (iface == NULL || *iface == '\0')
+    if (iface == NULL || *iface == '\0') {
         return 0;
+    }
 
     return if_nametoindex(iface) != 0;
 }
