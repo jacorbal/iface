@@ -1,7 +1,7 @@
 /**
  * @file show.c
  *
- * @brief Routines for showing information on screen implementation
+ * @brief Routines to show information on screen implementation
  */
 
 /* System includes */
@@ -21,6 +21,7 @@ void show_usage(FILE *fp)
 /* Print version information */
 void show_version(FILE *fp)
 {
-    fprintf(fp, "Version: %s (%s)\n", PROG_VERSION, PROG_BUILD);
+    fprintf(fp, "Version %s (%s)\n", PROG_VERSION, PROG_BUILD);
+    fprintf(fp, "Copyright %s, %s\n", PROG_COPYR, PROG_AUTHOR);
+    fprintf(fp, "Licensed under '%s'\n", PROG_LICENSE);
 }
-
