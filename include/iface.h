@@ -13,7 +13,7 @@
  *
  * @param iface Net interface to check
  *
- * @return 1 if the interface exist (true), or otherwise (false) 
+ * @return 0 if the interface does not exist, or otherwise
  */
 int iface_exists(const char *iface);
 
@@ -22,7 +22,7 @@ int iface_exists(const char *iface);
  *
  * @param iface Net interface
  *
- * @return IP address 
+ * @return IP address
  */
 char *iface_ip(const char *iface);
 
