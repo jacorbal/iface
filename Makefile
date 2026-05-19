@@ -46,28 +46,25 @@ TARGET = ${B_DIR}/main
 OBJS = $(patsubst ${S_DIR}/%.c, ${O_DIR}/%.o, $(wildcard ${S_DIR}/*.c))
 ARGS =
 
-## Linkage
-$(TARGET): $(OBJS)
-	$(CC) $(LDFLAGS) -o $@ $^
-
-## Compilation
-$(O_DIR)/%.o: $(S_DIR)/%.c
-	$(CC) $(CCFLAGS) -c -o $@ $<
-
-
 # Options
+all: makedirs $(TARGET)
+
 makedirs:
 	mkdir -p $(B_DIR) $(O_DIR)
 
-all: makedirs $(TARGET)
+$(TARGET): $(OBJS)
+	$(CC) $(LDFLAGS) -o $@ $^
+
+$(O_DIR)/%.o: $(S_DIR)/%.c
+	$(CC) $(CCFLAGS) -c -o $@ $<
 
 clean-obj:
-	rm --force $(OBJS)
-	rmdir $(O_DIR)
+	@rm -f $(OBJS)
+	@rmdir -p --ignore-fail-on-non-empty $(O_DIR) 2>/dev/null || true
 
 clean-bin:
-	rm --force $(TARGET)
-	rmdir $(B_DIR)
+	@rm -f $(TARGET)
+	@rmdir -p --ignore-fail-on-non-empty $(B_DIR) 2>/dev/null || true
 
 clean: clean-obj clean-bin
 
@@ -83,8 +80,6 @@ hard: clean all
 
 hard-run: clean all run
 
-run-hard: hard-run
-
 help:
 	@echo "Type:"
 	@echo "  'make all'......................... Build project"
@@ -98,5 +93,5 @@ help:
 
 
 ## Phony targets
-.PHONY: clean clean-obj clean-all run hard help
+.PHONY: makedirs all clean-obj clean-all clean run hard hard-run help
 
