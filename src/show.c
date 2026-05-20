@@ -14,14 +14,14 @@
 /* Print usage information */
 void show_usage(FILE *fp)
 {
-    fprintf(fp, "Usage: %s <interface>\n", PROG_NAME);
+    fprintf(fp, "Usage: %s <interface>\n\n", PROG_NAME);
 }
 
 
 /* Print version information */
 void show_version(FILE *fp)
 {
-    fprintf(fp, "Version %s (%s)\n", PROG_VERSION, PROG_BUILD);
+    fprintf(fp, "Version %s (%s).  Licensed under '%s'\n",
+            PROG_VERSION, PROG_BUILD, PROG_LICENSE);
     fprintf(fp, "Copyright %s, %s\n", PROG_COPYR, PROG_AUTHOR);
-    fprintf(fp, "Licensed under '%s'\n", PROG_LICENSE);
 }
