@@ -20,7 +20,7 @@ CSTD    = c99
 OPTLVL  = 3 #0:debug; 1:optimize; 2:optimize more; 3:optimize even more
 CFLAGSX = -D_DEFAULT_SOURCE
 CFLAGSW = -Wall -Werror -Wextra
-CCFLAGS = -I $(I_DIR) -std=$(CSTD) $(CFLAGSW) ${CFLAGSX}
+CCFLAGS = -I $(I_DIR) -std=$(CSTD) $(CFLAGSW) $(CFLAGSX)
 LDFLAGS = -L $(L_DIR)
 
 # Use `make DEBUG=1` to add debugging information, symbol table, etc.
@@ -42,21 +42,22 @@ SHELL = /bin/sh
 
 
 ## Files options
-TARGET = ${B_DIR}/main
-OBJS = $(patsubst ${S_DIR}/%.c, ${O_DIR}/%.o, $(wildcard ${S_DIR}/*.c))
-ARGS =
+TARGET = $(B_DIR)/main
+OBJS = $(patsubst $(S_DIR)/%.c, $(O_DIR)/%.o, $(wildcard $(S_DIR)/*.c))
+ARGS ?=
 
 # Options
 all: makedirs $(TARGET)
+	@echo "Done"
 
 makedirs:
-	mkdir -p $(B_DIR) $(O_DIR)
+	@mkdir -p $(B_DIR) $(O_DIR)
 
 $(TARGET): $(OBJS)
-	$(CC) $(LDFLAGS) -o $@ $^
+	$(CC) -o $@ $^ $(LDFLAGS)
 
 $(O_DIR)/%.o: $(S_DIR)/%.c
-	$(CC) $(CCFLAGS) -c -o $@ $<
+	$(CC) $(CCFLAGS) -c $< -o $@
 
 clean-obj:
 	@rm -f $(OBJS)
